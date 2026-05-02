@@ -1,0 +1,71 @@
+{
+  "primary_model": "Logistic Regression",
+  "optimal_threshold": 0.5500000000000002,
+  "at_optimal_threshold": {
+    "sensitivity": 0.5426356589147286,
+    "specificity": 0.7468706536856745,
+    "ppv": 0.2777777777777778,
+    "f1": 0.3674540682414698
+  },
+  "at_default_threshold_0.5": {
+    "sensitivity": 0.5968992248062015,
+    "specificity": 0.6731571627260083,
+    "ppv": 0.2467948717948718,
+    "npv": 0.9029850746268657,
+    "roc_auc": 0.6992,
+    "pr_auc": 0.3045,
+    "f1_binary": 0.3492
+  },
+  "all_models": {
+    "ROC-AUC": {
+      "Logistic Regression": 0.6992,
+      "Random Forest": 0.6491,
+      "XGBoost": 0.6835,
+      "CatBoost": 0.6912,
+      "Ensemble": 0.6866
+    },
+    "PR-AUC": {
+      "Logistic Regression": 0.3045,
+      "Random Forest": 0.2717,
+      "XGBoost": 0.2939,
+      "CatBoost": 0.2877,
+      "Ensemble": 0.3005
+    },
+    "Accuracy": {
+      "Logistic Regression": 0.6616,
+      "Random Forest": 0.8019,
+      "XGBoost": 0.658,
+      "CatBoost": 0.6627,
+      "Ensemble": 0.7052
+    },
+    "Precision": {
+      "Logistic Regression": 0.2468,
+      "Random Forest": 0.303,
+      "XGBoost": 0.2476,
+      "CatBoost": 0.2492,
+      "Ensemble": 0.259
+    },
+    "Recall": {
+      "Logistic Regression": 0.5969,
+      "Random Forest": 0.2326,
+      "XGBoost": 0.6124,
+      "CatBoost": 0.6047,
+      "Ensemble": 0.5039
+    },
+    "F1-Score": {
+      "Logistic Regression": 0.3492,
+      "Random Forest": 0.2632,
+      "XGBoost": 0.3527,
+      "CatBoost": 0.3529,
+      "Ensemble": 0.3421
+    }
+  },
+  "methodology": {
+    "imputation": "KNNImputer(k=5, distance-weighted)",
+    "normalisation": "PowerTransformer(yeo-johnson)",
+    "class_balancing": "class_weight \u2014 no synthetic data",
+    "split": "stratified 80/20 \u2014 split before any fitting",
+    "tuning": "Optuna 50 trials per model (XGBoost + CatBoost)",
+    "primary_metric": "PR-AUC + Sensitivity"
+  }
+}

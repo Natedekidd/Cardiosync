@@ -1,0 +1,67 @@
+{
+  "family": "cardiosync-framingham-task",
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "memory": "4096",
+  "executionRoleArn": "arn:aws:iam::YOUR_ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "framingham-predictor",
+      "image": "REPLACE_IMAGE_URI",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp",
+          "name": "fastapi-port"
+        },
+        {
+          "containerPort": 8501,
+          "protocol": "tcp",
+          "name": "streamlit-port"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "API_BASE_URL",
+          "value": "http://localhost"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:80/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/framingham-predictor",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "stopTimeout": 120,
+      "startTimeout": 300
+    }
+  ],
+  "tags": [
+    {
+      "key": "Project",
+      "value": "CardioSync-Framingham"
+    },
+    {
+      "key": "Environment",
+      "value": "Production"
+    },
+    {
+      "key": "Application",
+      "value": "Framingham-CHD-Risk-Prediction"
+    }
+  ]
+}

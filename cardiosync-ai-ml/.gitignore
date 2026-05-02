@@ -1,0 +1,59 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyc
+*.pyo
+*.pyd
+*.so
+build/
+dist/
+wheels/
+*.egg-info
+.Python
+
+# Virtual environments
+.venv
+venv/
+ENV/
+env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# UV
+uv.lock
+
+# CatBoost training logs (generated noise)
+catboost_info/
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+.env
+__pycache__/
+*.pyc
+artifacts/*.pkl
+artifacts/*.npy

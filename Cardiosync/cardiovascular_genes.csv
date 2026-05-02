@@ -1,0 +1,48 @@
+gene_name,rsid,chromosome,position,risk_allele,protective_allele,effect_size,african_frequency,condition,drug_interaction,citation,notes
+APOE,rs429358,19,44908684,C,T,1.42,0.19,Cardiovascular Disease,Statins (increased effectiveness with e4),Mahley 2016,e4 allele - increases CVD and Alzheimer's risk
+APOE,rs7412,19,44908822,T,C,0.80,0.08,Cardiovascular Disease,Statins (variable response),Mahley 2016,e2 allele - protective against CVD
+PCSK9,rs11591147,1,55039974,T,G,0.47,0.03,High LDL Cholesterol,PCSK9 inhibitors (enhanced response),Cohen 2005,Loss-of-function variant - highly protective
+PCSK9,rs505151,1,55505647,T,G,1.12,0.28,High LDL Cholesterol,Statins (variable response),Abifadel 2003,Increases LDL cholesterol levels
+PCSK9,rs562556,1,55496039,G,A,0.88,0.32,High LDL Cholesterol,Statins,Kathiresan 2008,Common protective variant in Africans
+LPA,rs10455872,6,160585140,A,G,1.92,0.15,Heart Attack,Niacin (potential benefit),Kamstrup 2009,Very strong risk variant for coronary artery disease
+LPA,rs3798220,6,160556665,C,T,1.70,0.02,Heart Attack,None specific,Clarke 2009,Rare but high-impact risk variant
+LDLR,rs688,19,11089362,A,G,1.15,0.22,High LDL Cholesterol,Statins (major target),Soutar 2003,LDL receptor - multiple variants affect cholesterol
+LDLR,rs6511720,19,11107536,T,G,1.10,0.18,High LDL Cholesterol,Statins,Kathiresan 2008,Common variant affecting LDL levels
+APOB,rs693,2,21229320,T,C,1.08,0.38,High LDL Cholesterol,Statins,Kathiresan 2009,ApoB protein - carrier for LDL cholesterol
+APOB,rs1367117,2,21263900,G,A,1.12,0.25,High LDL Cholesterol,Statins,Teslovich 2010,Affects LDL particle number
+CYP2C19,rs4244285,10,96541616,A,G,0.32,0.14,Drug Metabolism,Clopidogrel (poor metabolizer),Scott 2013,*2 allele - reduced clopidogrel effectiveness
+CYP2C19,rs4986893,10,96541756,A,G,0.30,0.04,Drug Metabolism,Clopidogrel (poor metabolizer),Scott 2013,*3 allele - poor metabolizer
+CYP2C19,rs12248560,10,96522463,T,C,1.80,0.18,Drug Metabolism,Clopidogrel (ultra-rapid metabolizer),Scott 2013,*17 allele - increased clopidogrel effectiveness
+CYP2C9,rs1799853,10,96702047,T,C,0.50,0.08,Drug Metabolism,Warfarin (requires lower dose),Aithal 1999,*2 allele - reduced warfarin metabolism
+CYP2C9,rs1057910,10,96741053,A,C,0.30,0.05,Drug Metabolism,Warfarin (requires lower dose),Higashi 2002,*3 allele - significantly reduced metabolism
+VKORC1,rs9923231,16,31107689,A,G,0.40,0.08,Drug Metabolism,Warfarin (requires lower dose),Rieder 2005,Major determinant of warfarin dose requirement
+CETP,rs708272,16,56959412,G,A,0.90,0.45,HDL Cholesterol,CETP inhibitors,Boekholdt 2005,B2 allele - raises HDL levels (protective)
+CETP,rs5882,16,56962453,A,G,0.92,0.28,HDL Cholesterol,CETP inhibitors,Thompson 2008,Affects HDL and LDL levels
+LIPC,rs1800588,15,58723675,T,C,0.95,0.20,HDL Cholesterol,None specific,Jansen 2011,Hepatic lipase - affects HDL metabolism
+SLCO1B1,rs4149056,12,21178615,C,T,1.45,0.15,Statin Side Effects,Statins (myopathy risk),Link 2008,Increased risk of statin-induced muscle problems
+ACE,rs4646994,17,63488529,D,I,1.25,0.40,Hypertension,ACE inhibitors (variable response),Rigat 1990,Insertion/deletion polymorphism affects blood pressure
+AGT,rs699,1,230710048,T,C,1.20,0.42,Hypertension,ARBs (variable response),Jeunemaitre 1992,M235T variant - affects angiotensinogen levels
+ADD1,rs4961,4,2927645,T,C,1.15,0.18,Hypertension,Diuretics (enhanced response),Cusi 1997,Affects sodium reabsorption
+CYP11B2,rs1799998,8,142911272,C,T,1.18,0.50,Hypertension,None specific,Pojoga 2011,Aldosterone synthase - affects blood pressure
+F5,rs6025,1,169549811,A,G,1.80,0.02,Blood Clotting,Anticoagulants,Bertina 1994,Factor V Leiden - thrombosis risk
+F2,rs1799963,11,46761055,A,G,1.70,0.01,Blood Clotting,Anticoagulants,Poort 1996,Prothrombin mutation - clotting disorder
+MTHFR,rs1801133,1,11796321,T,C,1.12,0.32,Homocysteine,Folate supplementation,Frosst 1995,C677T variant - affects homocysteine levels
+MTHFR,rs1801131,1,11794419,C,A,1.08,0.25,Homocysteine,Folate supplementation,van der Put 1998,A1298C variant - mild effect on homocysteine
+APOL1,rs73885319,22,36261198,G,A,1.50,0.35,Kidney Disease,ACE inhibitors,Genovese 2010,G1 variant - kidney and CVD risk in Africans
+APOL1,rs71785313,22,36262213,delTTAA,wildtype,1.70,0.21,Kidney Disease,ACE inhibitors,Genovese 2010,G2 variant - high risk in African ancestry
+NOS3,rs1799983,7,150690176,T,G,1.15,0.30,Endothelial Function,Nitrates (variable response),Hingorani 1999,Affects nitric oxide production
+KIF6,rs20455,6,39256240,T,C,1.25,0.38,Coronary Artery Disease,Statins (enhanced benefit),Iakoubova 2008,Controversial - may affect statin response
+9p21,rs10757274,9,22125504,G,A,1.29,0.47,Coronary Artery Disease,None specific,Helgadottir 2007,Strongest genetic risk locus for CAD
+9p21,rs1333049,9,22125503,C,G,1.25,0.50,Coronary Artery Disease,None specific,McPherson 2007,Near CDKN2A/2B genes
+MYBPC3,rs3729986,11,47353312,C,T,1.35,0.12,Hypertrophic Cardiomyopathy,Beta-blockers,Carrier 2004,Common cause of inherited heart muscle disease
+MYH7,rs121913626,14,23881980,G,A,2.00,0.01,Hypertrophic Cardiomyopathy,Beta-blockers,Marian 2001,High penetrance cardiomyopathy variant
+TNNT2,rs121964855,1,201359379,A,G,1.80,0.008,Hypertrophic Cardiomyopathy,Beta-blockers,Watkins 1995,Troponin T variant - severe phenotype
+SCN5A,rs41312434,3,38589531,G,A,1.90,0.02,Arrhythmia,Antiarrhythmics,Wang 1995,Brugada syndrome and sudden death risk
+KCNQ1,rs12720449,11,2477074,G,A,1.15,0.28,Atrial Fibrillation,Antiarrhythmics,Ellinor 2010,Most common arrhythmia genetic risk
+KCNE1,rs1805128,21,35736323,G,A,1.40,0.05,Long QT Syndrome,Beta-blockers (avoid QT-prolonging drugs),Splawski 2000,Sudden cardiac death risk
+LDLRAP1,rs121908039,1,25885993,C,T,1.65,0.03,Familial Hypercholesterolemia,Statins (high dose),Garcia 2001,Autosomal recessive FH
+SORT1,rs12740374,1,109822166,G,T,0.85,0.22,LDL Cholesterol,Statins,Kathiresan 2008,One of strongest common LDL variants
+HMGCR,rs17244841,5,75347424,A,T,0.90,0.18,Statin Response,Statins (enhanced response),Chasman 2004,Target of statin drugs
+IL6,rs1800795,7,22727026,C,G,1.18,0.35,Inflammation,Anti-inflammatory drugs,Fishman 1998,Inflammatory marker - CVD risk
+CRP,rs1130864,1,159713648,T,C,1.12,0.42,Inflammation,Statins (anti-inflammatory effect),Zee 2002,C-reactive protein - inflammation marker
+GJA5,rs3807989,1,147894906,T,C,1.22,0.38,Atrial Fibrillation,Antiarrhythmics,Sinner 2008,More common in African populations
