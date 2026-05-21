@@ -31,3 +31,17 @@ body {
   position: relative;
   background: white;
 }
+
+/* ── Dark Mode ────────────────────────────────────────────────── */
+.dark {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+.dark body {
+  background: #0f172a;
+}
+
+.dark .phone-frame {
+  background: #0f172a;
+}

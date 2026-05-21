@@ -312,3 +312,43 @@
   background: #111;
   border-radius: 2px;
 }
+
+/* ── Dark Mode ────────────────────────────────────────────────── */
+.dark .medications-screen { background: #0f172a; }
+.dark .medications-main { background: #0f172a; }
+
+.dark .page-title { color: #f1f5f9; }
+
+.dark .med-table-card,
+.dark .med-detail-card,
+.dark .med-full-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .med-table th { color: #94a3b8; }
+.dark .med-table td { color: #cbd5e1; border-bottom-color: #334155; }
+.dark .med-table thead tr { border-bottom-color: #334155; }
+.dark .med-name-cell { color: #f1f5f9 !important; }
+.dark .med-genetic-cell { color: #94a3b8 !important; }
+
+.dark .detail-card-title,
+.dark .full-section-title { color: #f1f5f9; }
+
+.dark .detail-divider,
+.dark .full-divider { background: #334155; }
+
+.dark .detail-info-item,
+.dark .full-section-text,
+.dark .monitoring-item { color: #cbd5e1; }
+
+.dark .detail-info-key { color: #f1f5f9; }
+
+.dark .medications-screen .sidebar {
+  background: #1e293b;
+  border-right-color: #334155;
+}
+.dark .medications-screen .sidebar-item { color: #f1f5f9; }
+.dark .medications-screen .sidebar-item:hover { background: #334155; }
+.dark .medications-screen .sidebar-bottom { border-top-color: #334155; }
+.dark .medications-screen .hamburger span { background: #f1f5f9; }

@@ -176,3 +176,37 @@
     color: var(--brand-blue);
     text-decoration: none;
   }
+
+  /* ── Dark Mode ────────────────────────────────────────────────── */
+.dark .auth-screen {
+  background-color: #0f172a;
+}
+
+.dark .auth-title { color: #f1f5f9; }
+.dark .auth-subtitle { color: #94a3b8; }
+
+.dark .input-group {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .input-field {
+  color: #f1f5f9;
+  background: transparent;
+}
+
+.dark .input-field::placeholder { color: #64748b; }
+
+.dark .btn-social {
+  background: #1e293b;
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+.dark .btn-social:hover { background: #334155; }
+
+.dark .divider-line { background: #334155; }
+.dark .divider-text { color: #64748b; }
+
+.dark .create-account-text { color: #94a3b8; }
+.dark .terms-text { color: #64748b; }

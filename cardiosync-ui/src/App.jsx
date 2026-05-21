@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { createContext, useContext, useState } from 'react'
 import { getToken } from './api'
 import Splash from './screens/splash'
 import Onboarding from './screens/onboarding'
@@ -11,32 +12,38 @@ import RiskAnalysis from './screens/RiskAnalysis'
 import ActionPlan from './screens/ActionPlan'
 import Profile from './screens/Profile'
 
-// Protect routes - redirect to /auth if not logged in
+// Theme context
+export const ThemeContext = createContext()
+export const useTheme = () => useContext(ThemeContext)
+
 function PrivateRoute({ children }) {
   return getToken() ? children : <Navigate to="/auth" replace />
 }
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="phone-frame">
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<Splash />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/auth" element={<Auth />} />
+  const [darkMode, setDarkMode] = useState(false)
+  const toggleTheme = () => setDarkMode(prev => !prev)
 
-          {/* Protected routes */}
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/patient" element={<PrivateRoute><PatientData /></PrivateRoute>} />
-          <Route path="/risk" element={<PrivateRoute><RiskAnalysis /></PrivateRoute>} />
-          <Route path="/simulation" element={<PrivateRoute><Simulation /></PrivateRoute>} />
-          <Route path="/medications" element={<PrivateRoute><Medications /></PrivateRoute>} />
-          <Route path="/action" element={<PrivateRoute><ActionPlan /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+  return (
+    <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
+      <BrowserRouter>
+        <div className={`phone-frame ${darkMode ? 'dark' : ''}`}>
+          <Routes>
+            <Route path="/" element={<Splash />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/auth" element={<Auth />} />
+
+            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/patient" element={<PrivateRoute><PatientData /></PrivateRoute>} />
+            <Route path="/risk" element={<PrivateRoute><RiskAnalysis /></PrivateRoute>} />
+            <Route path="/simulation" element={<PrivateRoute><Simulation /></PrivateRoute>} />
+            <Route path="/medications" element={<PrivateRoute><Medications /></PrivateRoute>} />
+            <Route path="/action" element={<PrivateRoute><ActionPlan /></PrivateRoute>} />
+            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </ThemeContext.Provider>
   )
 }
 

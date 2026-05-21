@@ -498,3 +498,62 @@
   font-size: 0.72rem;
   color: #9CA3AF;
 }
+/* ── Dark Mode ────────────────────────────────────────────────── */
+.dark .patient-screen { background: #0f172a; }
+.dark .patient-main { background: #0f172a; }
+.dark .page-title { color: #f1f5f9; }
+
+.dark .form-section {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .form-section-title { color: #f1f5f9; }
+.dark .form-label { color: #cbd5e1; }
+
+.dark .form-input {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark .form-select {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark .btn-sync {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.dark .upload-area {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .upload-text { color: #f1f5f9; }
+.dark .btn-browse {
+  background: #0f172a;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.dark .modal {
+  background: #1e293b;
+}
+
+.dark .modal-title { color: #f1f5f9; }
+.dark .modal-text { color: #94a3b8; }
+.dark .modal-body-text { color: #cbd5e1; }
+.dark .modal-checkbox { color: #f1f5f9; }
+
+.dark .patient-screen .sidebar {
+  background: #1e293b;
+  border-right-color: #334155;
+}
+.dark .patient-screen .sidebar-item { color: #f1f5f9; }
+.dark .patient-screen .sidebar-item:hover { background: #334155; }
+.dark .patient-screen .sidebar-bottom { border-top-color: #334155; }
+.dark .patient-screen .hamburger span { background: #f1f5f9; }

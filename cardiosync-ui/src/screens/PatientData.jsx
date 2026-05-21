@@ -14,6 +14,7 @@ const navItems = [
 
 function PatientData() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [importing, setImporting] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const [fileName, setFileName] = useState(null)
   const [vcfFile, setVcfFile] = useState(null)
@@ -221,6 +222,35 @@ function PatientData() {
       setSubmitting(false)
     }
   }
+  const handleEHRImport = () => {
+  setImporting(true)
+  setTimeout(() => {
+    setForm(prev => ({
+      ...prev,
+      name: prev.name || 'Emeka Okafor',
+      age: '58',
+      sex: 'Male',
+      height: '168',
+      weight: '102',
+      blood_pressure: '165/105',
+      heart_rate: '92',
+      blood_sugar: '190',
+      smoking: 'current-daily',
+      exercise_days: 0,
+      diet_quality: 'Poor',
+      hypertension: 'yes',
+      diabetes: 'yes-type2',
+      high_cholesterol: 'yes',
+      heart_disease: 'yes-cad',
+      stroke: 'yes-ischemic',
+      kidney_disease: 'yes-ckd',
+      location: prev.location || 'Lagos, Nigeria',
+    }))
+    setImporting(false)
+    setSubmitSuccess('✅ Records imported from hospital EHR system.')
+    setTimeout(() => setSubmitSuccess(''), 3000)
+  }, 2000)
+}
 
   return (
     <div className="patient-screen">
@@ -339,7 +369,29 @@ function PatientData() {
         </button>
 
         <div className="patient-content">
-          <h2 className="page-title">Personal details</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <h2 className="page-title" style={{ margin: 0 }}>Personal details</h2>
+            <button
+              onClick={handleEHRImport}
+              disabled={importing}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: importing ? '#E5E7EB' : '#EFF6FF',
+                color: importing ? '#9CA3AF' : '#1D4ED8',
+                border: '1px solid',
+                borderColor: importing ? '#E5E7EB' : '#BFDBFE',
+                borderRadius: '10px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: 600,
+                cursor: importing ? 'not-allowed' : 'pointer',
+              }}
+            >
+              {importing ? '⏳ Fetching...' : '🏥 Import from EHR'}
+            </button>
+          </div>
 
           {/* Status messages */}
           {submitError && (

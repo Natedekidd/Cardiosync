@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Doughnut, Bar } from 'react-chartjs-2'
+import { useTheme } from '../App'
+
 import {
   Chart as ChartJS,
   ArcElement,
@@ -60,6 +62,7 @@ const getLifestyleScore = (patient) => {
 }
 
 function Dashboard() {
+  const { darkMode, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('All')
   const [user, setUser] = useState(null)
@@ -251,7 +254,9 @@ function Dashboard() {
               <span>🔍</span>
               <input type="text" placeholder="Search" className="search-input" />
             </div>
-            <button className="bell-btn">🔔</button>
+            <button className="bell-btn" onClick={toggleTheme}>
+              {darkMode ? '☀️' : '🌙'}
+            </button>
           </div>
 
           {/* Greeting */}

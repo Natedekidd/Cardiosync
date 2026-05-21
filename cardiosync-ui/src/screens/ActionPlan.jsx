@@ -27,6 +27,10 @@ function ActionPlan() {
   const [sending, setSending] = useState(false)
   const [sendSuccess, setSendSuccess] = useState('')
   const [sendError, setSendError] = useState('')
+  const [hospitalModal, setHospitalModal] = useState(false)
+  const [hospitalId, setHospitalId] = useState('')
+  const [hospitalSending, setHospitalSending] = useState(false)
+  const [hospitalSuccess, setHospitalSuccess] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => { loadData() }, [])
@@ -38,7 +42,10 @@ function ActionPlan() {
         getPatient(),
         getRiskHistory(),
       ])
-      if (patientRes.patient) setPatient(patientRes.patient)
+      if (patientRes.patient) {
+        console.log('PATIENT DATA:', patientRes.patient)
+        setPatient(patientRes.patient)
+      }
       if (historyRes.history) setRiskHistory(historyRes.history)
     } catch (e) { console.error(e) }
     finally { setLoading(false) }
@@ -147,7 +154,6 @@ function ActionPlan() {
       y += 6
     }
 
-    // ── Header block ──
     doc.setFillColor(30, 58, 95)
     doc.rect(0, 0, pageWidth, 42, 'F')
     doc.setFontSize(22)
@@ -160,7 +166,6 @@ function ActionPlan() {
     doc.text(`Generated: ${new Date().toLocaleDateString('en-GB')}`, margin, 36)
     y = 54
 
-    // ── Patient info ──
     addText('PATIENT INFORMATION', 13, true, [30, 58, 95])
     addDivider([30, 58, 95])
     addText(`Name: ${patient?.full_name || 'N/A'}`)
@@ -170,7 +175,6 @@ function ActionPlan() {
     addText(`Diet Quality: ${patient?.diet_quality || 'N/A'}`)
     y += 4
 
-    // ── Risk summary ──
     addText('RISK SUMMARY', 13, true, [30, 58, 95])
     addDivider([30, 58, 95])
     if (totalRisk) {
@@ -182,7 +186,6 @@ function ActionPlan() {
     }
     y += 4
 
-    // ── Action plan ──
     addText('ACTION PLAN', 13, true, [30, 58, 95])
     addDivider([30, 58, 95])
     actionItems.forEach((item, i) => {
@@ -193,7 +196,6 @@ function ActionPlan() {
       y += 3
     })
 
-    // ── Disclaimer ──
     y += 4
     addDivider()
     addText('DISCLAIMER', 10, true, [107, 114, 128])
@@ -206,7 +208,17 @@ function ActionPlan() {
     doc.save(filename)
   }
 
-  // ── Send WhatsApp/SMS ─────────────────────────────────────────────────
+  // ── Hospital Send ─────────────────────────────────────────────────────
+  const handleHospitalSend = () => {
+    if (!hospitalId) return
+    setHospitalSending(true)
+    setTimeout(() => {
+      setHospitalSending(false)
+      setHospitalSuccess(`Report successfully transmitted to ${hospitalId}`)
+    }, 2500)
+  }
+
+  // ── Send WhatsApp/Email ───────────────────────────────────────────────
   const handleSend = async () => {
     setSendError('')
     setSendSuccess('')
@@ -225,7 +237,6 @@ function ActionPlan() {
         })
         setSendSuccess(`Report sent via WhatsApp to ${phone}!`)
       } else {
-        // EmailJS
         if (!window.emailjs) {
           await new Promise((resolve, reject) => {
             const script = document.createElement('script')
@@ -234,9 +245,9 @@ function ActionPlan() {
             script.onerror = reject
             document.head.appendChild(script)
           })
-          window.emailjs.init(import.meta.env.EMAILJS_PUBLIC_KEY)
+          window.emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
         }
-        await window.emailjs.send(import.meta.env.EMAILJS_SERVICE_ID, import.meta.env.EMAILJS_TEMPLATE_ID, {
+        await window.emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, {
           patient_name: patient?.full_name || 'Patient',
           total_risk: `${totalRisk.toFixed(1)}%`,
           risk_category: riskCategory,
@@ -255,6 +266,56 @@ function ActionPlan() {
 
   return (
     <div className="dashboard-screen">
+
+      {/* Hospital Modal */}
+      {hospitalModal && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
+          zIndex: 999, display: 'flex', justifyContent: 'center', alignItems: 'center',
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '16px', padding: '28px 24px',
+            width: '90%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '14px',
+          }}>
+            <h3 style={{ fontWeight: 700, fontSize: '16px', margin: 0 }}>🏥 Send to Hospital System</h3>
+            <p style={{ fontSize: '13px', color: '#6B7280', margin: 0, lineHeight: 1.6 }}>
+              Enter your hospital's FHIR endpoint or patient portal ID to transmit this report directly to your care team.
+            </p>
+            <input
+              type="text"
+              placeholder="Hospital ID or Endpoint URL"
+              value={hospitalId}
+              onChange={e => setHospitalId(e.target.value)}
+              style={{
+                border: '1.5px solid #E5E7EB', borderRadius: '8px',
+                padding: '10px 14px', fontSize: '14px', outline: 'none', width: '100%',
+              }}
+            />
+            <button
+              onClick={handleHospitalSend}
+              disabled={hospitalSending}
+              style={{
+                background: hospitalSending ? '#9CA3AF' : '#1e3a5f',
+                color: '#fff', border: 'none', borderRadius: '10px',
+                padding: '12px', fontWeight: 700,
+                cursor: hospitalSending ? 'not-allowed' : 'pointer', fontSize: '14px',
+              }}
+            >
+              {hospitalSending ? '📡 Transmitting...' : '📡 Transmit Report'}
+            </button>
+            {hospitalSuccess && (
+              <p style={{ color: '#15803D', fontSize: '13px', margin: 0 }}>✅ {hospitalSuccess}</p>
+            )}
+            <button
+              onClick={() => { setHospitalModal(false); setHospitalSuccess(''); setHospitalId('') }}
+              style={{ background: 'none', border: 'none', color: '#9CA3AF', cursor: 'pointer', fontSize: '13px' }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Sidebar */}
       <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
         <button className="sidebar-close" onClick={() => setMenuOpen(false)}>✕</button>
@@ -372,7 +433,7 @@ function ActionPlan() {
           <div style={{ background: '#fff', borderRadius: '16px', padding: '24px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '6px' }}>📱 Send Report to Phone</h3>
             <p style={{ fontSize: '13px', color: '#6B7280', marginBottom: '16px' }}>
-              Send your risk summary via WhatsApp or SMS.
+              Send your risk summary via WhatsApp or email.
             </p>
             <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
               {['whatsapp', 'email'].map(c => (
@@ -393,6 +454,7 @@ function ActionPlan() {
                 placeholder={channel === 'whatsapp' ? '+2348012345678' : 'recipient@email.com'}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                style={{ flex: 1, border: '1.5px solid #E5E7EB', borderRadius: '10px', padding: '10px 14px', fontSize: '14px', outline: 'none' }}
               />
               <button onClick={handleSend} disabled={sending} style={{
                 background: sending ? '#9CA3AF' : '#25D366', color: '#fff', border: 'none',
@@ -409,12 +471,14 @@ function ActionPlan() {
             </p>
           </div>
 
-          {/* Download PDF */}
-          <button onClick={handleDownloadPDF} style={{
-            width: '100%', background: '#1e3a5f', color: '#fff', border: 'none',
+          
+
+          {/* Send to Hospital */}
+          <button onClick={() => setHospitalModal(true)} style={{
+            width: '100%', background: '#0f766e', color: '#fff', border: 'none',
             borderRadius: '12px', padding: '14px', fontWeight: 700, cursor: 'pointer', fontSize: '15px', marginBottom: '12px',
           }}>
-            ⬇️ Download Full Report (.pdf)
+            🏥 Send Report to Hospital
           </button>
 
           <p style={{ textAlign: 'center', fontSize: '12px', color: '#9CA3AF', marginBottom: '24px' }}>

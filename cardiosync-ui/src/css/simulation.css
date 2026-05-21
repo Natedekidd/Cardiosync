@@ -344,3 +344,32 @@
   border-radius: 20px;
   color: #374151;
 }
+/* ── Dark Mode ────────────────────────────────────────────────── */
+.dark .simulation-screen { background: #0f172a; }
+.dark .simulation-main { background: #0f172a; }
+
+.dark .sim-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .sim-card-title { color: #f1f5f9; }
+.dark .slider-label { color: #f1f5f9; }
+.dark .slider { background: #334155; }
+
+.dark .output-section-title { color: #f1f5f9; }
+.dark .output-sub { color: #94a3b8; }
+.dark .output-divider { background: #334155; }
+.dark .improvement-label { color: #cbd5e1; }
+.dark .detail-text { color: #cbd5e1; }
+
+.dark .chip { background: #334155; color: #cbd5e1; }
+
+.dark .simulation-screen .sidebar {
+  background: #1e293b;
+  border-right-color: #334155;
+}
+.dark .simulation-screen .sidebar-item { color: #f1f5f9; }
+.dark .simulation-screen .sidebar-item:hover { background: #334155; }
+.dark .simulation-screen .sidebar-bottom { border-top-color: #334155; }
+.dark .simulation-screen .hamburger span { background: #f1f5f9; }
