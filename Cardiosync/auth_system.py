@@ -383,7 +383,7 @@ class AuthSystem:
         
             if data:
                 return {
-                    'full_name': data[13],
+                    'full_name': data[15],
                     'age': data[0],
                     'sex': data[1],
                     'bp_systolic': data[2],
@@ -425,25 +425,42 @@ class AuthSystem:
         try:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
-            
-            assessment_id = f"assess_{secrets.token_hex(8)}"
-            timestamp = datetime.now().isoformat()
-            
+
+            # Check if assessment already exists today
+            today = datetime.now().strftime('%Y-%m-%d')
             cursor.execute('''
-                INSERT INTO risk_assessments (
-                    assessment_id, user_id, total_risk, clinical_risk,
-                    genomic_risk, environmental_risk, created_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
-            ''', (assessment_id, user_id, total_risk, clinical_risk, genomic_risk, environmental_risk, timestamp))
+                SELECT assessment_id FROM risk_assessments
+                WHERE user_id = ? AND created_at LIKE ?
+                ''', (user_id, f'{today}%'))
+        
+            existing = cursor.fetchone()
+
+            if existing:
+            # Update instead of insert
+                cursor.execute('''
+                    UPDATE risk_assessments
+                    SET total_risk=?, clinical_risk=?, genomic_risk=?, environmental_risk=?
+                    WHERE assessment_id=?
+                ''', (total_risk, clinical_risk, genomic_risk, environmental_risk, existing[0]))
+            else:
+                # Fresh insert
+                assessment_id = f"assess_{secrets.token_hex(8)}"
+                timestamp = datetime.now().isoformat()
+                cursor.execute('''
+                    INSERT INTO risk_assessments (
+                        assessment_id, user_id, total_risk, clinical_risk,
+                        genomic_risk, environmental_risk, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                ''', (assessment_id, user_id, total_risk, clinical_risk, genomic_risk, environmental_risk, timestamp))
             
             conn.commit()
             conn.close()
-            
-            return True, "Risk assessment saved"
+            return True, "Risk Assessment saved"
         
         except Exception as e:
             return False, f"Failed to save assessment: {str(e)}"
-    
+
+
     
     def get_risk_history(self, user_id, limit=10):
         """
