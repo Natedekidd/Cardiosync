@@ -11,6 +11,10 @@ import Medications from './screens/Medications'
 import RiskAnalysis from './screens/RiskAnalysis'
 import ActionPlan from './screens/ActionPlan'
 import Profile from './screens/Profile'
+import Help from './screens/Help'
+
+// inside Routes:
+<Route path="/help" element={<PrivateRoute><Help /></PrivateRoute>} />
 
 // Theme context
 export const ThemeContext = createContext()
@@ -40,6 +44,7 @@ function App() {
             <Route path="/medications" element={<PrivateRoute><Medications /></PrivateRoute>} />
             <Route path="/action" element={<PrivateRoute><ActionPlan /></PrivateRoute>} />
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path="/help" element={<PrivateRoute><Help /></PrivateRoute>} />
           </Routes>
         </div>
       </BrowserRouter>
