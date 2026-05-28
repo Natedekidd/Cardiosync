@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd cardiosync-ui && npm install && npm run build",
+  "buildCommand": "cd cardiosync-ui && npm install && npx vite build",
   "outputDirectory": "cardiosync-ui/dist",
   "installCommand": "cd cardiosync-ui && npm install"
 }
