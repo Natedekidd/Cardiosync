@@ -55,5 +55,4 @@ htmlcov/
 .env
 __pycache__/
 *.pyc
-artifacts/*.pkl
-artifacts/*.npy
+
