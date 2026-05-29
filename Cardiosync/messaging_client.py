@@ -3,7 +3,7 @@ messaging_client.py
 Handles WhatsApp and SMS message delivery via Twilio
 """
 
-import streamlit as st
+import os
 
 # Try to import Twilio
 try:
@@ -29,10 +29,9 @@ def send_whatsapp_message(to_number, message_body):
     
     try:
         # Get Twilio credentials from Streamlit secrets
-        account_sid = st.secrets["twilio"]["account_sid"]
-        auth_token = st.secrets["twilio"]["auth_token"]
-        from_whatsapp = st.secrets["twilio"]["whatsapp_number"]
-        
+        account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+        auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+        from_whatsapp = os.environ.get("TWILIO_PHONE_NUMBER")
         # Initialize Twilio client
         client = Client(account_sid, auth_token)
         
@@ -73,9 +72,9 @@ def send_sms_message(to_number, message_body):
     
     try:
         # Get Twilio credentials from Streamlit secrets
-        account_sid = st.secrets["twilio"]["account_sid"]
-        auth_token = st.secrets["twilio"]["auth_token"]
-        from_number = st.secrets["twilio"].get("sms_number", None)
+        account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+        auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+        from_number = os.environ.get("TWILIO_PHONE_NUMBER")
         
         if not from_number:
             return False, "SMS number not configured in secrets"
@@ -202,26 +201,6 @@ def create_sms_report_summary(patient_data, total_risk):
     # Ensure within SMS limit
     return message[:160]
 
-
-def is_twilio_configured():
-    """
-    Check if Twilio is properly configured
-    
-    Returns:
-        bool: True if Twilio credentials are available
-    """
-    if not TWILIO_AVAILABLE:
-        return False
-    
-    try:
-        # Check if secrets exist
-        account_sid = st.secrets["twilio"]["account_sid"]
-        auth_token = st.secrets["twilio"]["auth_token"]
-        whatsapp_number = st.secrets["twilio"]["whatsapp_number"]
-        
-        return bool(account_sid and auth_token and whatsapp_number)
-    except:
-        return False
 
 
 def validate_phone_number(phone_number):

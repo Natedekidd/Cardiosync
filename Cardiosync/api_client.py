@@ -4,9 +4,10 @@ Fetches air quality and weather data from OpenWeatherMap
 """
 
 import requests
-import streamlit as st
+import os
 
-API_KEY = "e8678eb40cf1e210d88c05b59666b41f"  
+API_KEY = os.environ.get("OPENWEATHER_API_KEY", "")
+  
 
 def get_air_quality(city):
     """
@@ -71,13 +72,10 @@ def get_air_quality(city):
         return result
         
     except requests.exceptions.Timeout:
-        st.warning("⏱️ API request timed out. Using default environmental data.")
         return None
     except requests.exceptions.RequestException as e:
-        st.warning(f"⚠️ Could not fetch environmental data: {str(e)}")
         return None
     except (KeyError, IndexError) as e:
-        st.warning("⚠️ Unexpected API response format.")
         return None
 
 
@@ -169,83 +167,6 @@ def get_pm25_description(pm25):
         return "Very unhealthy air - major cardiovascular health concern"
 
 
-def display_environmental_data(air_quality_data):
-    """
-    Display environmental data in Streamlit UI
-    
-    Args:
-        air_quality_data (dict): Air quality data from API
-    """
-    if not air_quality_data:
-        st.info("💡 Enter your location to see environmental health impacts")
-        return
-    
-    st.markdown("### 🌍 Environmental Health Assessment")
-    
-    # Main metrics
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        aqi_desc, aqi_color, aqi_emoji = get_aqi_description(air_quality_data['aqi'])
-        st.metric(
-            "Air Quality Index",
-            f"{aqi_emoji} {aqi_desc}",
-            help="Overall air quality rating (1=Best, 5=Worst)"
-        )
-    
-    with col2:
-        pm25 = air_quality_data.get('pm2_5', 0)
-        st.metric(
-            "PM2.5 Level",
-            f"{pm25:.1f} μg/m³",
-            help="Fine particles that affect cardiovascular health"
-        )
-    
-    with col3:
-        env_risk = calculate_environmental_risk(air_quality_data)
-        st.metric(
-            "Environmental Risk",
-            f"+{env_risk}%",
-            help="Contribution to cardiovascular risk from environment"
-        )
-    
-    # Detailed breakdown
-    with st.expander("🔍 Detailed Environmental Analysis"):
-        st.markdown(f"""
-        **Location:** {air_quality_data['city']}
-        
-        **Air Pollutants:**
-        - PM2.5 (Fine Particles): {air_quality_data.get('pm2_5', 0):.1f} μg/m³
-        - PM10 (Coarse Particles): {air_quality_data.get('pm10', 0):.1f} μg/m³
-        - NO₂ (Nitrogen Dioxide): {air_quality_data.get('no2', 0):.1f} μg/m³
-        - O₃ (Ozone): {air_quality_data.get('o3', 0):.1f} μg/m³
-        
-        **Climate Factors:**
-        - Temperature: {air_quality_data.get('temperature', 'N/A')}°C
-        - Humidity: {air_quality_data.get('humidity', 'N/A')}%
-        
-        **Health Impact:**
-        {get_pm25_description(air_quality_data.get('pm2_5', 0))}
-        """)
-    
-    # Recommendations
-    pm25 = air_quality_data.get('pm2_5', 0)
-    if pm25 > 35:
-        st.warning("""
-        ⚠️ **Environmental Risk Mitigation:**
-        - Consider using HEPA air purifiers indoors
-        - Exercise in early morning when pollution is lower
-        - Wear N95 masks during outdoor activities
-        - Monitor AQI before planning outdoor exercise
-        - Consider relocating to areas with better air quality (long-term)
-        """)
-    elif pm25 > 12:
-        st.info("""
-        💡 **Environmental Health Tips:**
-        - Monitor air quality on high pollution days
-        - Exercise indoors when AQI is elevated
-        - Keep windows closed during high traffic hours
-        """)
 
 
 # Demo/test function
